@@ -1,16 +1,17 @@
 q2q:
   Vendor: Samsung
   PrettyName: Z Fold 3
-  DeviceType: handset
+  DeviceType: tablet
   SupportedOrientations:
     - Portrait
     - InvertedPortrait
     - Landscape
     - InvertedLandscape
   PrimaryOrientation:
-    - InvertedPortrait
+    - Portrait
   LomiriInteractiveBlur:
     - true
+  NumBuiltInDisplays: 2
   Foldable:
     - /sys/devices/virtual/sec/hall_ic/flip_status
   BacklightSysfsPath:
