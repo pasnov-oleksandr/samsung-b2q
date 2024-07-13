@@ -12,6 +12,8 @@ q2q:
   LomiriInteractiveBlur:
     - true
   NumBuiltInDisplays: 2
+  RepowerdIgnoreLidEvents:
+    - true
   Foldable:
     - /sys/devices/virtual/sec/hall_ic/flip_status
   BacklightSysfsPath:
