@@ -12,3 +12,5 @@ image: ubuntu:20.04
 build:
   tags: [ubports]
 
+devel-flashable:
+  tags: [ubports]
