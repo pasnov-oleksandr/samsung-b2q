@@ -12,6 +12,8 @@ q2q:
   LomiriInteractiveBlur:
     - true
   NumBuiltInDisplays: 2
+  OfonoPlugin: binder
+  OfonoImplementsIms: true
   RepowerdIgnoreLidEvents:
     - true
   Foldable:
