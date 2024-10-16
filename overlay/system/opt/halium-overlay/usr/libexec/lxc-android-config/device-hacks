@@ -23,7 +23,7 @@ while [ "$(getprop init.svc.vendor.wifi_hal_legacy)" != "running" ]; do sleep 0.
 # Enable WiFi
 modprobe wlan
 while [ ! -e /dev/wlan ]; do sleep 0.2; done
-echo ON > /dev/wlan; sleep 5
+echo ON > /dev/wlan; sleep 6
 
 # ignore second Wi-Fi interface in NetworkManager
 nmcli device set swlan0 managed false || true
