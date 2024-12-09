@@ -24,3 +24,4 @@ deviceinfo_bootimg_header_version="3"
 deviceinfo_bootimg_qcdt="false"
 
 deviceinfo_dtbo="samsung/q2/q2q/q2q_eur_openx_w00_r08.dtbo"
+deviceinfo_system_partition_size="6384M"
