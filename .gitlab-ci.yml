@@ -9,8 +9,58 @@ variables:
 
 image: ubuntu:20.04
 
-build:
-  tags: [ubports]
-
 devel-flashable:
   tags: [ubports]
+
+devel-bootloader-flashable:
+  stage: deploy
+  needs: [ "devel-flashable" ]
+  tags: [ubports]
+  when: manual
+  script: |
+    set -e
+
+    apt update
+    apt install -y \
+      build-essential clang git img2simg jq sudo unzip wget xz-utils zlib1g-dev
+
+    # Parallelize getting dependencies
+    (
+      git clone --depth=1 https://github.com/LonelyFool/lpunpack_and_lpmake.git
+      cd lpunpack_and_lpmake && ./make.sh
+    ) &
+    (
+      wget -U "Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Mobile Safari/537.36" --no-verbose https://download.azka.li/fold/ubuntu-touch-q2q-firmware-s.tar.xz
+      tar xvJf ubuntu-touch-q2q-firmware-s.tar.xz
+    ) &
+    # Use wait -n so that errors are propagated.
+    wait -n
+    wait -n
+
+    rm ubuntu-touch-q2q-firmware-s.tar.xz
+
+    SUPER=${SUPER:-"13115588608"}
+    SYSTEM=$(stat -c '%s' ./out/ubuntu.img)
+    PRODUCT=$(stat -c '%s' ./partitions/product.img)
+    VENDOR=$(stat -c '%s' ./partitions/vendor.img)
+    ODM=$(stat -c '%s' ./partitions/odm.img)
+    TOTAL=$((${SYSTEM} + ${PRODUCT} + ${VENDOR} + ${ODM}))
+
+    ./lpunpack_and_lpmake/bin/lpmake \
+      --metadata-size 65536 --metadata-slots 2 \
+      --sparse --super-name super \
+      --device super:${SUPER} --group ubuntu:${TOTAL} \
+      --partition system:none:${SYSTEM}:ubuntu \
+      --partition vendor:none:${VENDOR}:ubuntu \
+      --partition product:none:${PRODUCT}:ubuntu \
+      --partition odm:none:${ODM}:ubuntu \
+      --image 'system=out/ubuntu.img' \
+      --image 'vendor=partitions/vendor.img' \
+      --image 'product=partitions/product.img' \
+      --image 'odm=partitions/odm.img' \
+      --output out/super.img
+  artifacts:
+    paths:
+      - out/boot.img
+      - out/dtbo.img
+      - out/super.img
