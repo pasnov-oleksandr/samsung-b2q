@@ -35,7 +35,6 @@ echo 1 > /dev/ipa
 
 # Set sleep behavior to deep and state to mem
 echo deep > /sys/power/mem_sleep
-echo mem > /sys/power/state
 
 # Enable aethercast support
 setprop debug.stagefright.c2inputsurface 1
