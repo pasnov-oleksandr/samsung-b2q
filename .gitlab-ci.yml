@@ -30,7 +30,7 @@ devel-bootloader-flashable:
       cd lpunpack_and_lpmake && ./make.sh
     ) &
     (
-      wget -U "Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Mobile Safari/537.36" --no-verbose https://download.azka.li/fold/ubuntu-touch-q2q-firmware-s.tar.xz
+      wget --no-verbose -U "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36" https://download.azka.li/fold/ubuntu-touch-q2q-firmware-s.tar.xz
       tar xvJf ubuntu-touch-q2q-firmware-s.tar.xz
     ) &
     # Use wait -n so that errors are propagated.
