@@ -1,7 +1,8 @@
 q2q:
   Vendor: Samsung
   PrettyName: Z Fold 3
-  DeviceType: tablet
+  DeviceType: phone
+  GridUnit: 20
   SupportedOrientations:
     - Portrait
     - InvertedPortrait
@@ -16,7 +17,7 @@ q2q:
   OfonoImplementsIms: true
   RepowerdIgnoreLidEvents:
     - true
-  Foldable:
+  FoldableSysfsPath:
     - /sys/devices/virtual/sec/hall_ic/flip_status
   BacklightSysfsPath:
     - /sys/class/backlight/panel0-backlight
