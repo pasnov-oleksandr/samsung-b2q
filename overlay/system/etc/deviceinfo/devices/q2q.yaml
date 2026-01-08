@@ -1,7 +1,7 @@
 q2q:
   Vendor: Samsung
   PrettyName: Z Fold 3
-  DeviceType: phone
+  DeviceType: handset
   GridUnit: 20
   SupportedOrientations:
     - Portrait
