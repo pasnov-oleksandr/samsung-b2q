@@ -1,11 +1,11 @@
 #!/bin/bash
 while [ ! -e /sys/class/sec/hall_ic/flip_status ]; do sleep 1; done
 if [ $(cat /sys/class/sec/hall_ic/flip_status) = 1 ]; then
-       echo 0 > /sys/class/sec/tsp2/input/enabled
-       echo 1 > /sys/class/sec/tsp2/prox_power_off
-       echo 1 > /sys/class/sec/tsp1/input/enabled
+	echo 0 > /sys/class/sec/tsp2/input/enabled
+	echo 1 > /sys/class/sec/tsp2/prox_power_off
+	echo 1 > /sys/class/sec/tsp1/input/enabled
 else
-       echo 0 > /sys/class/sec/tsp1/input/enabled
-       echo 1 > /sys/class/sec/tsp2/prox_power_off
-       echo 1 > /sys/class/sec/tsp2/input/enabled
+	echo 0 > /sys/class/sec/tsp1/input/enabled
+	echo 1 > /sys/class/sec/tsp2/prox_power_off
+	echo 1 > /sys/class/sec/tsp2/input/enabled
 fi
