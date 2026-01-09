@@ -1,20 +1,16 @@
 include:
   - https://gitlab.com/ubports/porting/community-ports/halium-generic-adaptation-build-tools/-/raw/main/gsi-port-ci.yml
 
-devel-flashable:
-  tags: [ubports]
-
 devel-bootloader-flashable:
   stage: deploy
   needs: [ "devel-flashable" ]
-  tags: [ubports]
-  when: manual
+  variables:
+    VERSION: "24.04-1.x"
   script: |
     set -e
 
     apt update
-    apt install -y \
-      build-essential clang git img2simg jq sudo unzip wget xz-utils zlib1g-dev
+    apt install -y build-essential clang git img2simg jq sudo unzip wget xz-utils zlib1g-dev zip
 
     # Parallelize getting dependencies
     (
@@ -24,12 +20,19 @@ devel-bootloader-flashable:
     (
       wget --no-verbose -U "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36" https://download.azka.li/fold/ubuntu-touch-q2q-firmware-s.tar.xz
       tar xvJf ubuntu-touch-q2q-firmware-s.tar.xz
+      rm ubuntu-touch-q2q-firmware-s.tar.xz
     ) &
+    (
+      git clone --depth 1 https://gitlab.com/azkali-samsung/flashable-ubuntu-touch
+      wget https://gitlab.com/azkali-samsung/q2q/twrp/android_device_samsung_q2q/-/raw/android-15/prebuilt/vbmeta.tar
+      tar xf vbmeta.tar
+      rm vbmeta.tar
+    ) &
+
     # Use wait -n so that errors are propagated.
     wait -n
     wait -n
-
-    rm ubuntu-touch-q2q-firmware-s.tar.xz
+    wait -n
 
     SUPER=${SUPER:-"13115588608"}
     SYSTEM=$(stat -c '%s' ./out/ubuntu.img)
@@ -51,8 +54,10 @@ devel-bootloader-flashable:
       --image 'product=partitions/product.img' \
       --image 'odm=partitions/odm.img' \
       --output out/super.img
+
+    rm -rf partitions
+    cp out/boot.img out/dtbo.img out/super.img vbmeta.img flashable-ubuntu-touch
+    cd flashable-ubuntu-touch && zip ../ubuntu-touch-q2q-${VERSION}-flashable.zip *
   artifacts:
     paths:
-      - out/boot.img
-      - out/dtbo.img
-      - out/super.img
+      - ubuntu-touch-q2q-*-flashable.zip
