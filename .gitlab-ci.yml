@@ -10,7 +10,7 @@ devel-bootloader-flashable:
     set -e
 
     apt update
-    apt install -y build-essential clang git img2simg jq sudo unzip wget xz-utils zlib1g-dev zip
+    apt install -y build-essential clang git img2simg jq sudo unzip wget xz-utils zlib1g-dev zip zstd
 
     # Parallelize getting dependencies
     (
@@ -33,6 +33,8 @@ devel-bootloader-flashable:
     wait -n
     wait -n
     wait -n
+
+    unsztd ./out/ubuntu.img.zst
 
     SUPER=${SUPER:-"13115588608"}
     SYSTEM=$(stat -c '%s' ./out/ubuntu.img)
