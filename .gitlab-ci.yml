@@ -18,7 +18,7 @@ devel-bootloader-flashable:
       cd lpunpack_and_lpmake && ./make.sh
     ) &
     (
-      wget --no-verbose -U "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36" https://download.azka.li/fold/ubuntu-touch-q2q-firmware-s.tar.xz
+      wget --no-verbose -U "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36" https://download.azka.li/samsung/z-fold-3/ubuntu-touch-q2q-firmware-s.tar.xz
       tar xvJf ubuntu-touch-q2q-firmware-s.tar.xz
       rm ubuntu-touch-q2q-firmware-s.tar.xz
     ) &
