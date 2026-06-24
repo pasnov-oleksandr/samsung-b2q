@@ -34,7 +34,7 @@ devel-bootloader-flashable:
     wait -n
     wait -n
 
-    unsztd ./out/ubuntu.img.zst
+    unzstd ./out/ubuntu.img.zst
 
     SUPER=${SUPER:-"13115588608"}
     SYSTEM=$(stat -c '%s' ./out/ubuntu.img)
