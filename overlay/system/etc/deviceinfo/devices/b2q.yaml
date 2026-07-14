@@ -1,6 +1,6 @@
-q2q:
+b2q:
   Vendor: Samsung
-  PrettyName: Z Fold 3
+  PrettyName: Z Flip 3
   DeviceType: handset
   GridUnit: 20
   SupportedOrientations:

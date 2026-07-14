@@ -6,3 +6,7 @@ build/
 downloads/
 vendor.img
 *.img
+
+# Prevent git from tracking the local build workdir
+workdir/
+workdir/**/*
