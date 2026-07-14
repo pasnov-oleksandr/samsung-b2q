@@ -4,3 +4,5 @@ ota/
 tmp/
 build/
 downloads/
+vendor.img
+*.img
